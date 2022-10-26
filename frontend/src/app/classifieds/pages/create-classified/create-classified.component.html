@@ -1,0 +1,50 @@
+<!--
+  This example requires some changes to your config:
+  
+  ```
+  // tailwind.config.js
+  module.exports = {
+    // ...
+    plugins: [
+      // ...
+      require('@tailwindcss/forms'),
+    ],
+  }
+  ```
+-->
+<!--
+  This example requires updating your template:
+
+  ```
+  <html class="h-full bg-gray-50">
+  <body class="h-full">
+  ```
+-->
+<div class="flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+    <div class="w-full max-w-md space-y-8">
+      <div>
+        <h2 class="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">Create a new classified</h2>
+      </div>
+      <form class="mt-8 space-y-6" [formGroup]="classifiedForm" (ngSubmit)="onSubmit()">
+        <input type="hidden" name="remember" value="true">
+        <div class="rounded-md shadow-sm">
+          <div>
+            <label for="email-address" class="sr-only">Title</label>
+            <input id="email-address" name="email" formControlName="title" type="text" autocomplete="off" required class="relative block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm" placeholder="Classified Title">
+          </div>
+          <div class="mt-4">
+            <label for="password" class="sr-only">Description</label>
+            <textarea id="password" name="password" formControlName="description" type="text" autocomplete="off" required class="relative block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm" placeholder="A description for the classified...">
+            </textarea>
+          </div>
+        </div>
+  
+  
+        <div>
+          <button type="submit" class="group relative flex w-full justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+            Create Classified
+          </button>
+        </div>
+      </form>
+    </div>
+</div>

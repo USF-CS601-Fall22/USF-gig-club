@@ -1,0 +1,10 @@
+.login{
+    position: fixed;
+    padding: 5px 10px;
+    color: white;
+    background: #4f46e5;
+    cursor: pointer;
+    top: 1rem;
+    right: 1rem;
+    border-radius: 10px;
+}

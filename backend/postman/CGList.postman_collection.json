@@ -1,0 +1,399 @@
+{
+	"info": {
+		"_postman_id": "7c79ba83-f1c9-4feb-9dde-38ccff424646",
+		"name": "CGList",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Sign Up",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"test.user@test.com\",\n    \"password\": \"test@123\",\n    \"firstName\": \"test\",\n    \"lastName\": \"user\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/users/signup",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"users",
+								"signup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"test.user@test.com\",\n    \"password\": \"test@123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/users/login",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"users",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Classifieds",
+			"item": [
+				{
+					"name": "Fetch Classifieds",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{AUTH_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/classifieds?page=1&size=10",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"classifieds"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "size",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Fetch Single Classified",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{AUTH_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/classifieds/{{CLASSIFIED_ID}}",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"classifieds",
+								"{{CLASSIFIED_ID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Classified",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{AUTH_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"Classified Post\",\n    \"description\": \"A description for the classified\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/classifieds",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"classifieds"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Classified",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{AUTH_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"Classified Post\",\n    \"description\": \"A modified desc2ription for the classified\",\n    \"accepting\": false\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/classifieds/634ad4eb46c42c8ff086db5f",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"classifieds",
+								"634ad4eb46c42c8ff086db5f"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Classified",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{AUTH_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/classifieds/{{CLASSIFIED_ID}}",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"classifieds",
+								"{{CLASSIFIED_ID}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Comments",
+			"item": [
+				{
+					"name": "Fetch Comments",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{AUTH_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/comments/{{CLASSIFIED_ID}}?page=1&size=10",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"comments",
+								"{{CLASSIFIED_ID}}"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "size",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Comment",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{AUTH_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"text\": \"a test comment\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/comments/{{CLASSIFIED_ID}}",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"comments",
+								"{{CLASSIFIED_ID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Comment",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{AUTH_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"text\": \"an updated comment\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/comments/{{CLASSIFIED_ID}}/{{COMMENT_ID}}",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"comments",
+								"{{CLASSIFIED_ID}}",
+								"{{COMMENT_ID}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "HOST",
+			"value": "localhost:3000",
+			"type": "default"
+		},
+		{
+			"key": "AUTH_TOKEN",
+			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzNGFjMjk3NzM0MzMzZGFjNzNlYWQwYiIsImZpcnN0TmFtZSI6InRlc3QiLCJsYXN0TmFtZSI6InVzZXIiLCJlbWFpbCI6InRlc3QudXNlckB0ZXN0LmNvbSIsInBhc3N3b3JkIjoiJDJiJDEwJGRteUNFYVFOV21BQldsL3ltTTRtbXVNbjBRRmJQd0tnMHFxN3FYN01rZDZZQm1DOEZnb3EyIiwiaWF0IjoxNjY1OTMyODI5LCJleHAiOjE2NjU5MzY0Mjl9.Q_6YPWfErzmEsJI0twnbPgKtn_gYPA4qTHdjMqDKMiE",
+			"type": "default"
+		},
+		{
+			"key": "CLASSIFIED_ID",
+			"value": "634c1eb4bb27b2efebbc0495",
+			"type": "default"
+		},
+		{
+			"key": "COMMENT_ID",
+			"value": "634c2509cc015a8356bdd3a0",
+			"type": "default"
+		}
+	]
+}
