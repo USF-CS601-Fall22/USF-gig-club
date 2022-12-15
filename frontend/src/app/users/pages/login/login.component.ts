@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { ClassifiedService } from 'app/classifieds/services/classified.service';
 import { LoginRequest } from 'app/interfaces/loginrequest.interface';
 import { Login } from 'app/store/actions/auth.actions';
 import { AppState } from 'app/store/app.state';
@@ -38,10 +39,20 @@ export class LoginComponent implements OnInit {
     return this.loginForm.controls;
   }
 
-  constructor(private store: Store<AppState>, private router: Router) { }
+  constructor(private store: Store<AppState>, private router: Router,
+    
+    private classifiedService: ClassifiedService,
+    
+    ) { }
 
   ngOnInit(): void {
+
+    
   }
+
+
+
+
   gotoSignup():void{
   this.router.navigate(['/user/signup'])
   }

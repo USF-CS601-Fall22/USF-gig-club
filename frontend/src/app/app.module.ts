@@ -14,20 +14,27 @@ import { environment } from '../environments/environment';
 import { CoreModule } from '@core/core.module';
 import { classifiedReducer } from './store/reducers/classified.reducers';
 import { ClassifiedEffects } from './store/effects/classified.effects';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+
 
 @NgModule({
   declarations: [
     AppComponent
   ],
   imports: [
+    BrowserAnimationsModule,
     BrowserModule,
     AppRoutingModule,
     CoreModule,
     StoreModule.forRoot({ auth: authReducer, classified: classifiedReducer}),
     EffectsModule.forRoot([AuthEffects, ClassifiedEffects]),
-    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production })
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
+
+
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+ 
 })
 export class AppModule { }

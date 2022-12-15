@@ -18,7 +18,7 @@ export class AuthInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     console.log(request.url);
-    if (request.url.includes('classified')) {
+    if (request.url.includes('classified') || request.url.includes('notification')) {
       return this.store.select(authTokenSelector).pipe(
         first(),
         mergeMap(token => {

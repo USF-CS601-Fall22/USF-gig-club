@@ -21,6 +21,27 @@ app.set('port', port);
 
 var server = http.createServer(app);
 
+
+
+const io = require("socket.io")(server, {
+  cors: {
+    origin: "*",
+    methods: ["GET", "POST"],
+    allowedHeaders: ["*"],
+    credentials: false
+  }
+});
+
+io.on("connect", (socket)=>{  
+  socket.on("needhelp", (data)=>{
+    socket.broadcast.emit("needhelp", data.data);
+    console.log(data.data);
+  })
+
+
+})
+
+
 /**
  * Listen on provided port, on all network interfaces.
  */

@@ -11,36 +11,49 @@ datasource db {
 }
 
 model User {
-  id        String @id @default(auto()) @map("_id") @db.ObjectId
-  firstName String
-  lastName  String
-  email     String @unique
-  password  String
-  classifieds Classified[]
-  comments Comment[]
-  activation_key String @unique
-  is_active Boolean @default(false)
+  id             String          @id @default(auto()) @map("_id") @db.ObjectId
+  firstName      String
+  lastName       String
+  email          String          @unique
+  password       String
+  classifieds    Classified[]
+  comments       Comment[]
+  activation_key String          @unique
+  is_active      Boolean         @default(false)
+  is_admin       Boolean         @default(false)
+  notifications  Notifications[]
 }
 
 model Classified {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  title String
+  id          String    @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  title       String
   description String
-  accepting Boolean @default(true)
-  createdBy User @relation(fields: [userId], references: [id])
-  userId String
-  comments Comment[]
+  accepting   Boolean   @default(true)
+  createdBy   User      @relation(fields: [userId], references: [id])
+  userId      String
+  comments    Comment[]
 }
 
 model Comment {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
+  id           String     @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+  text         String
+  classified   Classified @relation(fields: [classifiedId], references: [id])
+  classifiedId String
+  createdBy    User       @relation(fields: [userId], references: [id])
+  userId       String
+}
+
+model Notifications {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  text String
-  classified Classified @relation(fields: [classifiedId], references: [id])
-  classifiedId String
-  createdBy User @relation(fields: [userId], references: [id])
-  userId String
+  text      String
+  from      String  @default("admin")
+  userId    String
+  seen      Boolean  @default(false)
+  User      User     @relation(fields: [userId], references: [id])
 }

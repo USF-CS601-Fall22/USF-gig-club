@@ -1,6 +1,9 @@
 export enum ActionTypes {
     LOGIN = "[Auth] Login",
-    LOGIN_SUCCESS = "[Auth] Login Success",
+    
+    USER_LOGIN_SUCCESS = "[Auth] User Login Success",
+    ADMIN_LOGIN_SUCCESS = "[Auth] Admin Login Success",
+
     LOGIN_FAILURE = "[Auth] Login Failure",
     SIGNUP = "[Auth] Signup",
     SIGNUP_SUCCESS = "[Auth] Signup Success",
@@ -10,5 +13,7 @@ export enum ActionTypes {
     FETCH_CLASSIFIEDS_FAILURE = "[Classifieds] Fetch Classifieds Failure",
     CREATE_CLASSIFIED = "[Classifieds] Create Classified",
     CREATE_CLASSIFIED_SUCCESS = "[Classifieds] Create Classified Success",
-    CREATE_CLASSIFIED_FAILURE = "[Classifieds] Create Classified Failure"
+    CREATE_CLASSIFIED_FAILURE = "[Classifieds] Create Classified Failure",
+
+    GET_NOTIFICATIONS_COUNT = "[Notifications] Get Notifications Count",
 }

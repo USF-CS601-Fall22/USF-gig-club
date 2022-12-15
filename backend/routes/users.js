@@ -16,11 +16,26 @@ router.get('/', function(req, res, next) {
 router.post('/signup', async function(req, res, next) {
   try {
     let activation_key = utils.createUniqueUUID();
+    // Check if user already exists
+    const userExists = await prisma.user.findUnique({
+      where: {
+        email: req.body.email
+      }
+    });
+    if (userExists) {
+      return res.status(400).json(utils.constructErrorJson("bad request", "user already exists"));
+    }
+
     const user = await prisma.user.create({
       data: {
         ...req.body,
         activation_key: activation_key,
-        password: utils.createHash(req.body.password)
+        password: utils.createHash(req.body.password),
+        notifications: {
+          create: [{
+            text: "Welcome to cglist!",
+          }]
+        },
       }
     })
     // Find a better way to handle this...
@@ -36,6 +51,7 @@ router.post('/signup', async function(req, res, next) {
 
 router.post('/login', async function(req, res, next) {
   try {
+    // abc@abc.com, abc@abc.com
     const user = await prisma.user.findUnique({
       where: {
         email: req.body.email
@@ -48,7 +64,7 @@ router.post('/login', async function(req, res, next) {
           return res.status(403).json(utils.constructErrorJson("unauthorized", "Account status inactive. Please activate using the link sent to your email."));
         }
   
-        res.status(200).json(utils.constructSuccessJson({ token }));
+        res.status(200).json(utils.constructSuccessJson({ token, user }));
       } else {
         res.status(401).json(utils.constructErrorJson("unauthorized", "emailid/password is invalid"));
       }

@@ -6,8 +6,11 @@ import { ActionTypes } from "./actiontypes";
 
 
 export const Login = createAction(ActionTypes.LOGIN, props<{ request: LoginRequest }>());
-export const LoginSuccess = createAction(ActionTypes.LOGIN_SUCCESS, props<{ response: IResponse }>());
+// export const LoginSuccess = createAction(ActionTypes.LOGIN_SUCCESS, props<{ response: IResponse }>());
 export const LoginFailure = createAction(ActionTypes.LOGIN_FAILURE, props<{ response: IResponse }>());
 export const Signup = createAction(ActionTypes.SIGNUP, props<{ request: SignupRequest }>());
 export const SignupSuccess = createAction(ActionTypes.SIGNUP_SUCCESS, props<{ response: IResponse }>());
 export const SignupFailure = createAction(ActionTypes.SIGNUP_FAILURE, props<{ response: IResponse }>());
+
+export const UserLoginSuccess = createAction(ActionTypes.USER_LOGIN_SUCCESS, props<{ response: IResponse }>());
+export const AdminLoginSuccess = createAction(ActionTypes.ADMIN_LOGIN_SUCCESS, props<{ response: IResponse }>());

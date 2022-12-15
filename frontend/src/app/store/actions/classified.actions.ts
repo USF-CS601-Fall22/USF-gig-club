@@ -12,3 +12,5 @@ export const FetchClassifiedsFailure = createAction(ActionTypes.FETCH_CLASSIFIED
 export const CreateClassified = createAction(ActionTypes.CREATE_CLASSIFIED, props<{ request: ClassifiedCreationRequest }>());
 export const CreateClassifiedSuccess = createAction(ActionTypes.CREATE_CLASSIFIED_SUCCESS, props<{ response: IResponse }>());
 export const CreateClassifiedFailure = createAction(ActionTypes.CREATE_CLASSIFIED_FAILURE, props<{ response: IResponse }>());
+
+export const GetNotificationsCount = createAction(ActionTypes.GET_NOTIFICATIONS_COUNT, props<{ request: any }>());

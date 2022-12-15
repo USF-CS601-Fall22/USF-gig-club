@@ -4,21 +4,31 @@ import { AuthService } from "@core/services/auth.service";
 import { Actions, ofType, createEffect } from "@ngrx/effects";
 import { IResponse } from "app/interfaces/response.interface";
 import { catchError, exhaustMap, mergeMap, of, map, tap } from "rxjs";
-import { Login, LoginFailure, LoginSuccess, Signup, SignupFailure, SignupSuccess } from "../actions/auth.actions";
-
+import { AdminLoginSuccess, Login, LoginFailure,UserLoginSuccess, Signup, SignupFailure, SignupSuccess } from "../actions/auth.actions";
+import { CommonService } from "app/common.service";
 @Injectable()
 export class AuthEffects {
     constructor(
         private actions$: Actions,
         private authService: AuthService,
-        private router: Router
+        private router: Router,
+        private commonService: CommonService
     ) {}
 
     logIn$ = createEffect(() => this.actions$.pipe(
         ofType(Login),
         mergeMap(({ request }) => this.authService.login(request)
             .pipe(
-                map((response: IResponse) => LoginSuccess({ response })),
+                map((response: IResponse) => {
+
+                    this.commonService.setDetails(response.data.user);
+                    
+                    if(response.data.user.is_admin){
+                        return AdminLoginSuccess({ response });
+                    }else{
+                        return UserLoginSuccess({ response });
+                    }
+                }),
                 catchError((err) => {
                     let response: IResponse = {
                         message: "",
@@ -43,7 +53,10 @@ export class AuthEffects {
         ofType(Signup),
         mergeMap(({ request }) => this.authService.signup(request)
             .pipe(
-                map((response: IResponse) => SignupSuccess({ response })),
+                map((response: IResponse) => {
+                    this.commonService.setDetails(response.data.user);
+                    return SignupSuccess({ response });
+                }),
                 catchError((err) => {
                     let response: IResponse = {
                         message: "",
@@ -55,8 +68,23 @@ export class AuthEffects {
         )
     ));
 
-    loginComplete$ = createEffect(() => this.actions$.pipe(
-        ofType(LoginSuccess),
-        tap(() => this.router.navigate(['/']))
+    adminLoginComplete$ = createEffect(() => this.actions$.pipe(
+        ofType(AdminLoginSuccess),
+        tap(() => this.commonService.setAdmin()),
+        tap(() => this.router.navigate(['admin']))
     ), { dispatch: false })
+
+    userLoginCompleted$ = createEffect(() => this.actions$.pipe(
+        ofType(UserLoginSuccess),
+        tap(() => this.commonService.setUser()),
+        tap(() => this.router.navigate(["/"]))
+    ), { dispatch: false })
+
+    signupSuccess$ = createEffect(() => this.actions$.pipe(
+        ofType(SignupSuccess),
+        tap(() => this.commonService.setUser()),
+        tap(() => alert("Please verify your email id by visiting the link sent to your mail.")),
+        tap(() => this.router.navigate(["/user/login"]))
+    ), { dispatch: false })
+
 }

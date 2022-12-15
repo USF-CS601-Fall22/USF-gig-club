@@ -4,7 +4,7 @@ import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { ClassifiedService } from "app/classifieds/services/classified.service";
 import { IResponse } from "app/interfaces/response.interface";
 import { catchError, map, mergeMap, of, tap } from "rxjs";
-import { CreateClassified, CreateClassifiedFailure, CreateClassifiedSuccess, FetchClassifieds, FetchClassifiedsFailure, FetchClassifiedsSuccess } from "../actions/classified.actions";
+import { CreateClassified, CreateClassifiedFailure, CreateClassifiedSuccess, FetchClassifieds, FetchClassifiedsFailure, FetchClassifiedsSuccess, GetNotificationsCount } from "../actions/classified.actions";
 
 @Injectable()
 export class ClassifiedEffects {

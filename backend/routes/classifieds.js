@@ -57,13 +57,27 @@ router.get('/:id', async function (req, res, next) {
 })
 
 router.put('/:id', async function (req, res, next) {
+        
+    
+    
     try {
         const updateClassified = await prisma.classified.update({
             where: {
                 id: req.params.id
             },
             data: {
-                ...req.body
+                accepting: req.body.accepting,
+            }
+        });
+        // create a notification for the user
+        const notification = await prisma.notifications.create({
+            data: {
+                text: "Your classified has been updated",
+                User: {
+                    connect: {
+                        id: updateClassified.userId
+                    }
+                }
             }
         });
         res.status(200).json(utils.constructSuccessJson({ updateClassified }));

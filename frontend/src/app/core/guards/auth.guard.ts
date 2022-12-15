@@ -3,6 +3,7 @@ import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTr
 import { select, Store } from '@ngrx/store';
 import { AppState } from 'app/store/app.state';
 import { isAuthenticatedSelector } from 'app/store/selectors/auth.selectors';
+import { environment } from 'environments/environment';
 import { Observable, tap } from 'rxjs';
 
 @Injectable({

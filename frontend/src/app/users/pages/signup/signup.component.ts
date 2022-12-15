@@ -62,8 +62,6 @@ export class SignupComponent implements OnInit {
         password: this.form.password.value,
       }
       this.store.dispatch(Signup({ request }))
-    alert("Account confirmation link has been sent to your email")
-      this.route.navigate(['/user/login'])
     }
   }
 

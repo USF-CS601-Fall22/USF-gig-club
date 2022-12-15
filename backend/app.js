@@ -9,6 +9,7 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var classifiedsRouter = require('./routes/classifieds');
 var commentsRouter = require('./routes/comments');
+var notificationRouter = require("./routes/notification");
 
 var authMiddleware = require('./middlewares/auth');
 
@@ -26,5 +27,7 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/classifieds', authMiddleware.authenticate, classifiedsRouter);
 app.use('/comments', authMiddleware.authenticate, commentsRouter);
+app.use('/notification', authMiddleware.authenticate, notificationRouter);
+
 
 module.exports = app;
