@@ -24,6 +24,11 @@ export class AdminComponent implements OnInit {
 
   ngOnInit(): void {
 
+
+    this.classifiedService.listenFromAdmin().subscribe((response) => {
+      this.messages.push(response);
+  });
+
     const request: ClassifiedRequest = {
       page: 1,
       size: 10
@@ -78,6 +83,34 @@ export class AdminComponent implements OnInit {
 
 
   }
+
+
+
+
+
+
+
+
+
+
+  showChatBox: boolean = false;
+  messages: any = [{ name: "bot" , text: "Need help or quick assistance, type here." }];
+
+  toggleChatBox(){
+    this.showChatBox = !this.showChatBox;
+  }
+
+
+  askAdmin(message:any){
+   let data = { name: this.commonService.getUser().firstName , text: message }
+      this.messages.push({ name: this.commonService.getUser().firstName, text: message });
+    this.classifiedService.askAdmin({data})
+    this.message = "";
+
+  }
+
+  message:String = "";
+
 
 
 
