@@ -15,13 +15,15 @@ export class ClassifiedService {
 
   private BASE_URL = environment.api_base_url;
 
-  private socket:Socket;
+  private socket:any;
 
 
   constructor(private http: HttpClient) { 
+    if(!environment.production){
       this.socket = io(this.BASE_URL, {
       withCredentials: false,
     });
+  }
   }
 
 
